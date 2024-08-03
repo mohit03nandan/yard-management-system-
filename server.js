@@ -1,20 +1,18 @@
 const express = require('express')
+const bodyParser = require('body-parser');
+const vehicleRoutes = require('./routes/vehicleRoutes');
+const path = require('path');
+const cors = require('cors');
 const connect = require("./config/db")
 const app = express();
-
-
-
-
-// routes
-const cors = require("cors") // 
 
 connect();
 
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(cors())
-
+app.use(bodyParser.json());
+app.use(cors());
+app.use('/qr-codes', express.static(path.join(__dirname, '../qr-codes')));
+app.use('/vehicles', vehicleRoutes);
 
 //routes
 
